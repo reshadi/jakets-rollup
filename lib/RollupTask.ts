@@ -1,7 +1,7 @@
 import * as Rollup from "rollup";
 import * as Jakets from "jakets/lib/Jakets";
 import * as Task from "jakets/lib/task/Task";
-import { } from "jakets/lib/task/FileTask";
+// import { } from "jakets/lib/task/FileTask";
 
 let RollupNodeResolve = require('rollup-plugin-node-resolve');
 let RollupMultiEntry = require('rollup-plugin-multi-entry');
@@ -37,17 +37,18 @@ export function RollupTask(
 
   options.Bundle.dest = outputFilename;
 
-  let depInfo = new Jakets.CommandInfo({
+  let depInfo = new Jakets.CommandInfo(<any>{
     Name: name,
+    Dependencies: Task.Task.NormalizeDedpendencies(dependencies),
     Files: inputFilenames,
     Options: options
-  }, dependencies);
+  });
 
   //Write the json file before adding the plugins:
   return Jakets.FileTask(depInfo.DependencyFile, depInfo.AllDependencies, async function () {
     return Rollup.rollup(options.Rollup)
       .then(bundle => bundle.write(options.Bundle))
-      .then(() => { 
+      .then(() => {
         //Remove plugins since it is not clear what will be written!
         options.Rollup.plugins = null;
         depInfo.Write();

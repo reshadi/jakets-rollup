@@ -8,14 +8,18 @@ JAKETS__MAKEFILE = $(word 1, $(wildcard $(JAKETS__MAKEFILES)))
 ifeq ("$(JAKETS__MAKEFILE)","")
   JAKETS__MAKEFILE = $(lastword $(JAKETS__MAKEFILES))
   JAKETS__DIR = $(dir $(JAKETS__MAKEFILE))
-  CURLOUT := $(shell curl https://raw.githubusercontent.com/reshadi/jakets/v6/Makefile --create-dirs -o $(JAKETS__MAKEFILE) )
-  $(info $(CURLOUT))
+  CMD_OUT += $(shell mkdir -p $(JAKETS__DIR) )
+  CMD_OUT += $(shell npm update --no-save)
+  ifeq ("$(JAKETS__MAKEFILE)","")
+    CMD_OUT += $(shell curl https://raw.githubusercontent.com/reshadi/jakets/v5.x.x/Makefile --create-dirs -o $(JAKETS__MAKEFILE) )
+  endif
+  $(info CMD_OUT="$(CMD_OUT)" )
 endif
-$(info JAKETS__DIR="$(dir $(JAKETS__MAKEFILE)" ))
+$(info JAKETS__DIR="$(dir $(JAKETS__MAKEFILE))" )
+$(info JAKETS__MAKEFILE="$(JAKETS__MAKEFILE)" )
 
 JAKE_TASKS += debug release
 LOG_LEVEL?=0
-# EXPECTED_NODE_VERSION=v6.7.0
 # NODE__DIR?=./build/nodejs
 include $(JAKETS__MAKEFILE)
 
@@ -28,4 +32,4 @@ include $(JAKETS__MAKEFILE)
 #
 
 #
-####################################################################################################
+######################################################################

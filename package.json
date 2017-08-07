@@ -1,29 +1,31 @@
 {
-  "name": "jakets-browserify",
-  "version": "1.0.0",
-  "description": "Browserify task for Jakets.",
+  "name": "jakets-rollup",
+  "version": "1.0.1",
+  "description": "rollup task for Jakets.",
   "main": "Jakefile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/reshadi/jakets-browserify.git"
+    "url": "https://github.com/reshadi/jakets-rollup.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/reshadi/jakets/issues"
+    "url": "https://github.com/reshadi/jakets-rollup/issues"
   },
-  "homepage": "https://github.com/reshadi/jakets-browserify",
+  "homepage": "https://github.com/reshadi/jakets-rollup",
   "dependencies": {
-    "@types/rollup": "^0.41.0",
-    "jakets": "git+https://github.com/reshadi/jakets.git#v6",
-    "rollup": "^0.41.6",
+    "@types/rollup": "^0.41.1",
+    "jakets": "git+https://github.com/reshadi/jakets.git#v5.x.x",
+    "rollup": "^0.45.2",
+    "rollup-plugin-multi-entry": "^2.0.1",
+    "rollup-plugin-node-resolve": "^3.0.0"
+  },
+  "_dep": {
     "rollup-plugin-babel": "^2.6.1",
     "rollup-plugin-commonjs": "^5.0.5",
-    "rollup-plugin-multi-entry": "^2.0.1",
-    "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-typescript": "^0.8.1"
   }
 }
