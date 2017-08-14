@@ -41,7 +41,8 @@ export function RollupTask(
     Name: name,
     Dependencies: Task.Task.NormalizeDedpendencies(dependencies),
     Files: inputFilenames,
-    Options: options
+    Options: options,
+    Output: outputFilename
   });
 
   //Write the json file before adding the plugins:
