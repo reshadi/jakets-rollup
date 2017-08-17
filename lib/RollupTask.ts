@@ -5,7 +5,12 @@ import * as Task from "jakets/lib/task/Task";
 
 let RollupNodeResolve = require('rollup-plugin-node-resolve');
 let RollupMultiEntry = require('rollup-plugin-multi-entry');
-let RollupNodeResolvePlugin = RollupNodeResolve({ jsnext: true, });
+let RollupNodeResolvePlugin = RollupNodeResolve({
+  jsnext: true,
+  module: true,
+  main: true,  // for commonjs modules that have an index.js
+  browser: true
+});
 let RollupMultiEntryPlugin = RollupMultiEntry();
 
 export function RollupTask(
@@ -33,6 +38,9 @@ export function RollupTask(
   } else {
     options.Rollup.entry = inputFilenames[0];
   }
+
+  plugins.push(RollupNodeResolvePlugin);
+
   options.Rollup.plugins = plugins;
 
   options.Bundle.dest = outputFilename;
