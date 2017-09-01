@@ -1,3 +1,4 @@
+import * as Path from "path";
 import * as Rollup from "rollup";
 import * as Jakets from "jakets/lib/Jakets";
 import * as Task from "jakets/lib/task/Task";
@@ -45,22 +46,28 @@ export function RollupTask(
 
   options.Bundle.dest = outputFilename;
 
-  let depInfo = new Jakets.CommandInfo(<any>{
+  let depInfo = new Jakets.CommandInfo({
     Name: name,
-    Dependencies: Task.Task.NormalizeDedpendencies(dependencies),
-    Files: inputFilenames,
+    Dir: Path.resolve(Jakets.LocalDir),
+    Command: "rollup",
+    Inputs: inputFilenames,
+    Outputs: [outputFilename],
     Options: options,
-    Output: outputFilename
+    Dependencies: Task.Task.NormalizeDedpendencies(dependencies),
   });
 
   //Write the json file before adding the plugins:
   return Jakets.FileTask(depInfo.DependencyFile, depInfo.AllDependencies, async function () {
+    let sectionName = `rollup compile ${depInfo.Data.Name} with ${depInfo.DependencyFile}`;
+    console.time(sectionName);
+
     return Rollup.rollup(options.Rollup)
       .then(bundle => bundle.write(options.Bundle))
       .then(() => {
         //Remove plugins since it is not clear what will be written!
         options.Rollup.plugins = null;
         depInfo.Write();
+        console.timeEnd(sectionName);
       });
   });
 }

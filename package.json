@@ -18,7 +18,7 @@
   "homepage": "https://github.com/reshadi/jakets-rollup",
   "dependencies": {
     "@types/rollup": "^0.41.1",
-    "jakets": "git+https://github.com/reshadi/jakets.git#v5.x.x",
+    "jakets": "git+https://github.com/reshadi/jakets.git#v6.x.x",
     "rollup": "^0.47.6",
     "rollup-plugin-multi-entry": "^2.0.1",
     "rollup-plugin-node-resolve": "^3.0.0"
