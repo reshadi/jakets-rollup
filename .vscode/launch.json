@@ -1,16 +1,17 @@
 {
   "version": "0.2.0",
-  "configurations": [{
+  "configurations": [
+    {
       "name": "Jake",
       "type": "node",
       "request": "launch",
-      // "program": "${workspaceRoot}/node_modules/jake/bin/cli.js",
-      "program": "${workspaceRoot}/Jakefile.ts",
+      "program": "${workspaceRoot}/node_modules/jake/bin/cli.js",
+      // "program": "${workspaceRoot}/Jakefile.ts",
       "stopOnEntry": false,
       "args": [
         // "-f", "${workspaceRoot}/build/Jakefile.js",
         // "jts:setup",
-        "test_rollup"
+        "rollup:test"
       ],
       "cwd": "${workspaceRoot}",
       "runtimeExecutable": null,
@@ -24,12 +25,6 @@
       "outFiles": [
         "${workspaceRoot}/**/*.js"
       ]
-    },
-    {
-      "name": "Attach",
-      "type": "node",
-      "request": "attach",
-      "port": 5858
     }
   ]
 }

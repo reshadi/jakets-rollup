@@ -20,31 +20,33 @@ export function RollupTask(
   , inputFilenames: string[]
   , dependencies: Task.TaskDependencies
   , options?: {
-    Rollup?: Rollup.Options
-    Bundle?: Rollup.WriteOptions
+    Rollup?: Rollup.InputOptions
+    Bundle?: Rollup.OutputOptions
   }
 ): Jakets.FileTaskType {
   //Make a copy of all options before changing them
-  options = Object.assign({}, options);
-  options.Rollup = Object.assign({}, options.Rollup);
-  options.Bundle = Object.assign({}, options.Bundle);
 
-  let plugins: Rollup.Plugin[] = [];
-  if (options.Rollup.plugins) {
-    plugins = plugins.concat(options.Rollup.plugins);
+  let inputOptions: Rollup.RollupFileOptions = {
+    ...options.Rollup,
+    // input: inputFilenames,
+    input: null,
+    plugins: [RollupNodeResolvePlugin],
+  };
+  if (options.Rollup && options.Rollup.plugins) {
+    inputOptions.plugins = inputOptions.plugins.concat(options.Rollup.plugins);
   }
   if (inputFilenames.length > 1) {
-    plugins.push(RollupMultiEntry());
-    options.Rollup.entry = <any>inputFilenames;
+    inputOptions.plugins.push(RollupMultiEntry());
+    inputOptions.input = <any>inputFilenames;
   } else {
-    options.Rollup.entry = inputFilenames[0];
+    inputOptions.input = inputFilenames[0];
   }
 
-  plugins.push(RollupNodeResolvePlugin);
-
-  options.Rollup.plugins = plugins;
-
-  options.Bundle.dest = outputFilename;
+  let outputOptions: Rollup.OutputOptions = {
+    ...options.Bundle,
+    dest: outputFilename,
+    file: outputFilename,
+  };
 
   let depInfo = new Jakets.CommandInfo({
     Name: name,
@@ -52,7 +54,7 @@ export function RollupTask(
     Command: "rollup",
     Inputs: inputFilenames,
     Outputs: [outputFilename],
-    Options: options,
+    Options: { Rollup: inputOptions, Bundle: outputOptions },
     Dependencies: Task.Task.NormalizeDedpendencies(dependencies),
   });
 
@@ -61,11 +63,13 @@ export function RollupTask(
     let sectionName = `rollup compile ${depInfo.Data.Name} with ${depInfo.DependencyFile}`;
     console.time(sectionName);
 
-    return Rollup.rollup(options.Rollup)
-      .then(bundle => bundle.write(options.Bundle))
+    return Rollup.rollup(inputOptions)
+      .then(bundle => {
+        return bundle.write(outputOptions);
+      })
       .then(() => {
         //Remove plugins since it is not clear what will be written!
-        options.Rollup.plugins = null;
+        inputOptions.plugins = null;
         depInfo.Write();
         console.timeEnd(sectionName);
       });

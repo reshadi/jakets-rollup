@@ -30,9 +30,9 @@ Jakets.GlobalTaskNs(
         Bundle: {
           dest: "",
           format: "iife",
-          moduleName: "TopModule",
-          sourceMap: "inline",
-          useStrict: false
+          name: "TopModule",
+          sourcemap: "inline",
+          strict: false
         }
       }
     )
