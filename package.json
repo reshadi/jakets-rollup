@@ -19,9 +19,9 @@
   "dependencies": {
     "@types/rollup": "^0.41.1",
     "jakets": "git+https://github.com/reshadi/jakets.git#v6.x.x",
-    "rollup": "^0.47.6",
-    "rollup-plugin-multi-entry": "^2.0.1",
-    "rollup-plugin-node-resolve": "^3.0.0"
+    "rollup": "^0.59.4",
+    "rollup-plugin-multi-entry": "^2.0.2",
+    "rollup-plugin-node-resolve": "^3.3.0"
   },
   "_dep": {
     "rollup-plugin-babel": "^2.6.1",
