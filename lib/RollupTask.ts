@@ -14,15 +14,17 @@ let RollupNodeResolvePlugin = RollupNodeResolve({
 });
 let RollupMultiEntryPlugin = RollupMultiEntry();
 
+export interface RollupOptions {
+  Rollup?: Rollup.InputOptions;
+  Bundle?: Rollup.OutputOptions;
+}
+
 export function RollupTask(
   name: string
   , outputFilename: string
   , inputFilenames: string[]
   , dependencies: Task.TaskDependencies
-  , options?: {
-    Rollup?: Rollup.InputOptions
-    Bundle?: Rollup.OutputOptions
-  }
+  , options?:RollupOptions
 ): Jakets.FileTaskType {
   //Make a copy of all options before changing them
 
@@ -30,6 +32,7 @@ export function RollupTask(
     ...options.Rollup,
     // input: inputFilenames,
     input: null,
+    cache: null,
     plugins: [RollupNodeResolvePlugin],
   };
   if (options.Rollup && options.Rollup.plugins) {
