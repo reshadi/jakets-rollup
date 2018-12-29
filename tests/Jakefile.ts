@@ -17,7 +17,7 @@ Jakets.GlobalTaskNs(
       , [
         Tsc.TscTask(
           "tsc"
-          , [MakeRelative("./Main.ts")]
+          , ["./Main.ts", "./Module1.ts"].map(MakeRelative)
           , []
           , {
             outDir: CompileDir,
@@ -28,7 +28,7 @@ Jakets.GlobalTaskNs(
       ]
       , {
         Bundle: {
-          dest: "",
+          // dest: "",
           format: "iife",
           name: "TopModule",
           sourcemap: "inline",

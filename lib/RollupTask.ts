@@ -5,14 +5,14 @@ import * as Task from "jakets/lib/task/Task";
 // import { } from "jakets/lib/task/FileTask";
 
 let RollupNodeResolve = require('rollup-plugin-node-resolve');
-let RollupMultiEntry = require('rollup-plugin-multi-entry');
+// let RollupMultiEntry = require('rollup-plugin-multi-entry');
 let RollupNodeResolvePlugin = RollupNodeResolve({
   jsnext: true,
   module: true,
   main: true,  // for commonjs modules that have an index.js
   browser: true
 });
-let RollupMultiEntryPlugin = RollupMultiEntry();
+// let RollupMultiEntryPlugin = RollupMultiEntry();
 
 export interface RollupOptions {
   Rollup?: Rollup.InputOptions;
@@ -28,26 +28,26 @@ export function RollupTask(
 ): Jakets.FileTaskType {
   //Make a copy of all options before changing them
 
-  let inputOptions: Rollup.RollupFileOptions = {
+  let inputOptions: Rollup.RollupOptions = {
     ...options.Rollup,
-    // input: inputFilenames,
-    input: null,
+    input: inputFilenames,
+    // input: null,
     cache: null,
     plugins: [RollupNodeResolvePlugin],
   };
   if (options.Rollup && options.Rollup.plugins) {
     inputOptions.plugins = inputOptions.plugins.concat(options.Rollup.plugins);
   }
-  if (inputFilenames.length > 1) {
-    inputOptions.plugins.push(RollupMultiEntry());
-    inputOptions.input = <any>inputFilenames;
-  } else {
-    inputOptions.input = inputFilenames[0];
-  }
+  // if (inputFilenames.length > 1) {
+  //   inputOptions.plugins.push(RollupMultiEntry());
+  //   inputOptions.input = <any>inputFilenames;
+  // } else {
+  //   inputOptions.input = inputFilenames[0];
+  // }
 
   let outputOptions: Rollup.OutputOptions = {
     ...options.Bundle,
-    dest: outputFilename,
+    // dest: outputFilename,
     file: outputFilename,
   };
 
