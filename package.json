@@ -1,6 +1,6 @@
 {
   "name": "jakets-rollup",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "rollup task for Jakets.",
   "main": "Jakefile.js",
   "scripts": {
@@ -18,9 +18,10 @@
   },
   "homepage": "https://github.com/reshadi/jakets-rollup",
   "dependencies": {
-    "jakets": "git+https://github.com/reshadi/jakets.git#v7.x.x",
-    "rollup": "^1.0.0",
-    "rollup-plugin-node-resolve": "^4.0.0"
+    "jakets": "^7.0.0",
+    "rollup": "^1.15.6",
+    "rollup-plugin-node-resolve": "^5.0.2",
+    "rollup-plugin-visualizer": "^2.2.0"
   },
   "_dep": {
     "rollup-plugin-babel": "^4.1.0",

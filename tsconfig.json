@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "outDir": "build",
+    "strict": true,
+    "target": "esnext"
+  },
+  // "exclude": [
+  //   "node_modules"
+  // ],
+}

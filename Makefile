@@ -20,10 +20,9 @@ $(info JAKETS__MAKEFILE="$(abspath $(JAKETS__MAKEFILE))")
 $(info JAKETS__MAKEFILE="$(realpath $(JAKETS__MAKEFILE))")
 
 
-JAKE_TASKS += debug release client server compile test_server test_client test
+JAKE_TASKS += test
 LOG_LEVEL?=0
 NODE__DIR?=./build/nodejs
-EXPECTED_NODE_VERSION=v11.1.0
 include $(JAKETS__MAKEFILE)
 
 #
