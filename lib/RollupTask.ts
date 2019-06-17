@@ -80,7 +80,7 @@ export function RollupTask(
       })
       .then(() => {
         //Remove plugins since it is not clear what will be written!
-        inputOptions.plugins = null;
+        delete inputOptions.plugins;
         depInfo.Write();
         console.timeEnd(sectionName);
       });
